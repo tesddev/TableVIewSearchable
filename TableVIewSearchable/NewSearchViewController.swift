@@ -52,6 +52,7 @@ class NewSearchViewController: UIViewController, UITableViewDelegate,UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationController?.navigationBar.isHidden = true
         theFilteredArray = categoriesAndDetails
         activateConstraint()
         discoverTableView.delegate = self
@@ -112,11 +113,23 @@ class NewSearchViewController: UIViewController, UITableViewDelegate,UITableView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let theTerminalSelected = theFilteredArray[indexPath.row]
-        self.dismiss(animated: true) {
-            print(theTerminalSelected)
-            //    self.delegate?.seloectSearchReasult(theTerminalSelected)
+        let filteredCategoryIndex = theFilteredArray[indexPath.row]
+        let category = filteredCategoryIndex["CategoryName"]
+        if filteredCategoryIndex["IsGoFaster"] as! Int != 1 || filteredCategoryIndex["IsGoStandard"] as! Int != 1 {
+            print("alert issearch true")
+            var availableService = ""
+            if filteredCategoryIndex["IsGoFaster"] as! Int == 1 {
+                availableService = "GoFaster"
+            } else {
+                availableService = "GoStandard"
+            }
+            showCustomSimpleAlert("", message: "\(category ?? "") can only be shipped from the US through \(availableService). Would you like to proceed.", okString: "Yes", cancelString: "No") { _ in
+                print("okay, it is \(availableService)")
+            } cancelCompletion: { _ in
+                self.navigationController?.popViewController(animated: true)
+            }
         }
+        print("did select pressed")
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -143,14 +156,26 @@ class NewSearchViewController: UIViewController, UITableViewDelegate,UITableView
     func searchAutocompleteEntriesWithSubstring(_ substring:String) {
         
         theFilteredArray.removeAll()
-        theFilteredArray = categoriesAndDetails.filter{($0["CategoryName"] as! String).containsString(theString: substring)}
+        theFilteredArray = categoriesAndDetails.filter({ (text) -> Bool in
+            let tmp: NSString = text["CategoryName"] as! NSString
+            let range = tmp.range(of: substring, options: NSString.CompareOptions.caseInsensitive)
+            return range.location != NSNotFound
+        })
         discoverTableView.reloadData()
+    }
+    
+    func showCustomSimpleAlert(_ title:String, message:String?, okString: String, cancelString: String, completion: @escaping (UIAlertAction) -> (), cancelCompletion: @escaping (UIAlertAction) -> ()) {
+        let alertView = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: okString, style: .default, handler:completion)
+        let cancelAction = UIAlertAction(title: cancelString, style: .cancel, handler: cancelCompletion)
+        alertView.addAction(okAction)
+        alertView.addAction(cancelAction)
+        self.present(alertView, animated: true, completion: nil)
     }
 }
 
 extension String {
     func containsString(theString:String) -> Bool {
-        theString.count
         return self.range(of: theString) != nil
     }
 }
