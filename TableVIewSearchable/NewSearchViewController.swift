@@ -33,7 +33,7 @@ class NewSearchViewController: UIViewController, UITableViewDelegate,UITableView
         controller.searchBarStyle = .minimal
         controller.showsCancelButton = true
         controller.translatesAutoresizingMaskIntoConstraints = false
-        
+        controller.tintColor = .black
         return controller
     }()
     
@@ -61,6 +61,7 @@ class NewSearchViewController: UIViewController, UITableViewDelegate,UITableView
         searchBar.delegate = self
         
         self.discoverTableView.reloadData()
+        print("these are the array from page b4 ->> \(categoriesAndDetails)")
     }
     
     private func activateConstraint() {
