@@ -7,7 +7,13 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ItemCategoryDelegate  {
+    func addCategory(_ theNewItem: [String]) {
+        let one = theNewItem[0]
+        let two = theNewItem[1]
+        self.instructionLabel.text = one + two
+        print("\(one) and two")
+    }
     
     var categories = [String]()
     
@@ -26,6 +32,14 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private var instructionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Press okay to select"
+        label.font = UIFont.systemFont(ofSize: 20)
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -39,17 +53,14 @@ class ViewController: UIViewController {
         }
         
         APINetworking().getInternationalShipmentInstructionNotAlamoFire { theResponseValue, errorMessage in
-            print(theResponseValue?.object as Any, errorMessage as Any)
-            let category = theResponseValue?.object
-            for each in category ?? [] {
-                
-            }
+//            print(theResponseValue?.object as Any, errorMessage as Any)
         }
-        
     }
+   
     
     private func addSubviews() {
         view.addSubview(okButton)
+        view.addSubview(instructionLabel)
     }
     
     func activateConstraint() {
@@ -58,14 +69,18 @@ class ViewController: UIViewController {
             okButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             okButton.widthAnchor.constraint(equalToConstant: 60),
             okButton.heightAnchor.constraint(equalToConstant: 30),
+            
+            instructionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            instructionLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
         ])
     }
     
     @objc func didTapOkButton(_ sender: Any) {
         print("ok tapped")
-        self.navigationController?.pushViewController(NewSearchViewController(), animated: true)
+        let vc = NewSearchViewController()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
 
     }
-    
 }
 

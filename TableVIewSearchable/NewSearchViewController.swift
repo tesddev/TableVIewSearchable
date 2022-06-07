@@ -7,8 +7,13 @@
 
 import UIKit
 
-class NewSearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate {
+protocol ItemCategoryDelegate {
+    func addCategory(_ theNewItem: [String])
+}
+
+class NewSearchViewController: UIViewController, UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate{
     
+    var delegate: ItemCategoryDelegate?
     private let backButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "arrow.backward"), for: .normal)
@@ -116,21 +121,32 @@ class NewSearchViewController: UIViewController, UITableViewDelegate,UITableView
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let filteredCategoryIndex = theFilteredArray[indexPath.row]
         let category = filteredCategoryIndex["CategoryName"]
+        let servicesAvailable = (filteredCategoryIndex["isGoStandard"], filteredCategoryIndex["isGoFaster"])
+        var arrayOfAvailableServices = [String]()
+        var availableService = ""
+        
         if filteredCategoryIndex["IsGoFaster"] as! Int != 1 || filteredCategoryIndex["IsGoStandard"] as! Int != 1 {
             print("alert issearch true")
-            var availableService = ""
             if filteredCategoryIndex["IsGoFaster"] as! Int == 1 {
                 availableService = "GoFaster"
             } else {
                 availableService = "GoStandard"
             }
             showCustomSimpleAlert("", message: "\(category ?? "") can only be shipped from the US through \(availableService). Would you like to proceed.", okString: "Yes", cancelString: "No") { _ in
+                arrayOfAvailableServices.append(availableService)
+                self.delegate?.addCategory(arrayOfAvailableServices)
                 print("okay, it is \(availableService)")
+                self.navigationController?.popViewController(animated: true)
             } cancelCompletion: { _ in
                 self.navigationController?.popViewController(animated: true)
             }
+        } else {
+            arrayOfAvailableServices.append("GoFaster")
+            arrayOfAvailableServices.append("GoStandard")
+            print("-- here is array of available services = \(arrayOfAvailableServices)")
+            self.delegate?.addCategory(arrayOfAvailableServices)
+            self.navigationController?.popViewController(animated: true)
         }
-        print("did select pressed")
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
