@@ -9,10 +9,15 @@ import UIKit
 
 class ViewController: UIViewController, ItemCategoryDelegate  {
     func addCategory(_ theNewItem: [String]) {
-        let one = theNewItem[0]
-        let two = theNewItem[1]
-        self.instructionLabel.text = one + two
-        print("\(one) and two")
+        var finalString = ""
+        if theNewItem.count == 2 {
+            let one = theNewItem[0]
+            let two = theNewItem[1]
+            finalString = one + two
+        } else {
+            finalString = theNewItem[0]
+        }
+        self.instructionLabel.text = finalString
     }
     
     var categories = [String]()
@@ -46,6 +51,9 @@ class ViewController: UIViewController, ItemCategoryDelegate  {
         addSubviews()
         activateConstraint()
         print("loaded")
+        
+        let arr = ["v", "r"]
+        print(arr.count)
         
         for cat in self.categoriesAndDetails {
             self.categories.append(cat["CategoryName"] as! String)
