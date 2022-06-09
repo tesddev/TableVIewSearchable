@@ -31,7 +31,7 @@ class SearchViewController: UIViewController, UITableViewDelegate,UITableViewDat
     private let instructionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "Please select category of item"
+        label.text = "Select category of item"
         label.font = UIFont.systemFont(ofSize: 20)
         return label
     }()

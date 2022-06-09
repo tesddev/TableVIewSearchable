@@ -17,6 +17,7 @@
 		823C69A42846648600042CBE /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C69A32846648600042CBE /* SearchViewController.swift */; };
 		823C69A62848E0EC00042CBE /* APINetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C69A52848E0EC00042CBE /* APINetworking.swift */; };
 		823C69A82848F2FD00042CBE /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 823C69A72848F2FD00042CBE /* CategoryModel.swift */; };
+		825A71D02851524F00529BB7 /* HideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825A71CF2851524F00529BB7 /* HideViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		823C69A32846648600042CBE /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		823C69A52848E0EC00042CBE /* APINetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APINetworking.swift; sourceTree = "<group>"; };
 		823C69A72848F2FD00042CBE /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
+		825A71CF2851524F00529BB7 /* HideViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				823C69A32846648600042CBE /* SearchViewController.swift */,
 				823C69A72848F2FD00042CBE /* CategoryModel.swift */,
 				82228A48284F89AF00866268 /* NewSearchViewController.swift */,
+				825A71CF2851524F00529BB7 /* HideViewController.swift */,
 				823C69A52848E0EC00042CBE /* APINetworking.swift */,
 				823C69952846611300042CBE /* Main.storyboard */,
 				823C69982846611500042CBE /* Assets.xcassets */,
@@ -154,6 +157,7 @@
 				823C69A82848F2FD00042CBE /* CategoryModel.swift in Sources */,
 				823C69A62848E0EC00042CBE /* APINetworking.swift in Sources */,
 				82228A49284F89AF00866268 /* NewSearchViewController.swift in Sources */,
+				825A71D02851524F00529BB7 /* HideViewController.swift in Sources */,
 				823C69902846611300042CBE /* AppDelegate.swift in Sources */,
 				823C69A42846648600042CBE /* SearchViewController.swift in Sources */,
 				823C69922846611300042CBE /* SceneDelegate.swift in Sources */,

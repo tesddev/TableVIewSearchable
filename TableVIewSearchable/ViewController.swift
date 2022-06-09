@@ -18,6 +18,8 @@ class ViewController: UIViewController, ItemCategoryDelegate  {
             finalString = theNewItem[0]
         }
         self.instructionLabel.text = finalString
+        let vc = HideViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     var categories = [String]()

@@ -134,9 +134,12 @@ class NewSearchViewController: UIViewController, UITableViewDelegate,UITableView
             }
             showCustomSimpleAlert("", message: "\(category ?? "") can only be shipped from the US through \(availableService). Would you like to proceed.", okString: "Yes", cancelString: "No") { _ in
                 arrayOfAvailableServices.append(availableService)
-                self.delegate?.addCategory(arrayOfAvailableServices)
                 print("okay, it is \(availableService)")
-                self.navigationController?.popViewController(animated: true)
+//                self.navigationController?.popViewController(animated: true)
+//                self.delegate?.addCategory(arrayOfAvailableServices)
+                let vc = HideViewController()
+                vc.availableOption = arrayOfAvailableServices
+                self.navigationController?.pushViewController(vc, animated: true)
             } cancelCompletion: { _ in
                 self.navigationController?.popViewController(animated: true)
             }
@@ -144,8 +147,11 @@ class NewSearchViewController: UIViewController, UITableViewDelegate,UITableView
             arrayOfAvailableServices.append("GoFaster")
             arrayOfAvailableServices.append("GoStandard")
             print("-- here is array of available services = \(arrayOfAvailableServices)")
-            self.delegate?.addCategory(arrayOfAvailableServices)
-            self.navigationController?.popViewController(animated: true)
+//            self.navigationController?.popViewController(animated: true)
+//            self.delegate?.addCategory(arrayOfAvailableServices)
+            let vc = HideViewController()
+            vc.availableOption = arrayOfAvailableServices
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
